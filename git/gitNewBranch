@@ -1,0 +1,7 @@
+git checkout -b chenduxiu
+git push origin chenduxiu:chenduxiu
+
+删除分支
+git push origin :chenduxiu
+2种:
+	git push origin --delete chenduxiu
