@@ -1,0 +1,28 @@
+#!/bin/bash
+sudo cp my.cnf /etc
+if test ! -d /usr/lib/systemd/system; then
+	sudo mkdir -p /usr/lib/systemd/system
+fi
+con=$(uname -a | grep Ubuntu)
+echo ${con}
+serPath=/usr/lib/systemd/system 
+if [[ "$con" ]]; then 
+	serPath=/lib/systemd/system
+fi
+echo $serPath
+sudo cp mysqld.service $serPath 
+cd $serPath 
+sudo chmod 644 mysqld.service
+
+if test ! -d /usr/lib/tmpfiles.d; then
+	sudo mkdir -p /usr/lib/tmpfiles.d
+fi
+#sudo cp mysql.conf /usr/lib/tmpfiles.d
+if [[ $? != 0 ]]; then
+	echo 'cp fault'
+	exit
+fi
+##cd /usr/lib/tmpfiles.d
+##sudo chmod 644 mysql.conf
+sudo systemctl enable mysqld.service
+##sudo systemctl start mysqld

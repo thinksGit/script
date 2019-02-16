@@ -1,0 +1,2 @@
+根目录 + /bin/mysql -u root -p '' -S /tmp/mysql.sock -P 3306
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'new_password';
