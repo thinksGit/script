@@ -1,0 +1,11 @@
+#!/bin/bash
+#有bug 这个下载是个异步的没下载玩就往下执行了，具体原因没找到
+wget -O sougou.deb http://cdn2.ime.sogou.com/dl/index/1524572264/sogoupinyin_2.2.0.0108_amd64.deb?st=DitVMzkNZmFVVDaVjrJwfQ&e=1550844192&fn=sogoupinyin_2.2.0.0108_amd64.deb
+sudo apt update
+sudo apt install fcitx
+配置fcitx
+im-config
+echo 'ssssssssssssssss'
+sudo dpkg -i sougou.deb
+sudo apt install -f
+echo '安装搜狗完成，徐进行手动配置'
