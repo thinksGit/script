@@ -1,0 +1,37 @@
+#!/bin/bash
+wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" https://download.oracle.com/otn-pub/java/jdk/8u201-b09/42970487e3af4f5aa5bca3f542482c60/jdk-8u201-linux-x64.tar.gz
+
+echo "download end............"
+
+##set jdk env
+echo " start set jdk env "
+if test ! -d ~/softInstall/jdk8;then
+	mkdir -p ~/softInstall/jdk8
+fi
+tar -zxvf jdk-8u201-linux-x64.tar.gz --strip-components=1 -C ~/softInstall/jdk8 
+if test $? != 0; then
+	echo 'jie ya error'
+	exit
+fi
+sudo ln -s ~/softInstall/jdk8 /opt/jdk8 
+##write setting file
+echo "start writer setting file"
+cp ~/.bashrc ~/.bashrc.bat
+cd ~/
+sed '/JAVA_HOME=/d' .bashrc
+sed '/JRE_HOME=/d' .bashrc
+sed '/CLASSPATH=/d' .bashrc
+cat <<EOF >> ~/.bashrc
+##set Java environment
+export JAVA_HOME=/opt/jdk8
+export JRE_HOME=\${JAVA_HOME}/jre
+export CLASSPATH=.:\${JAVA_HOME}/lib:\${JRE_HOME}/lib:\${CLASSPATH}
+export PATH=\${JAVA_HOME}/bin:\${JRE_HOME}/bin:\${PATH}
+EOF
+if test $? != 0; then
+	rm -rf .bashrc
+	mv .bashrc.bat .bashrc
+	echo 'wrrite .bashrc error'
+	exit
+fi
+source ~/.bashrc

@@ -1,0 +1,10 @@
+sudo apt install git git-daemon-run git-doc git-el git-email git-gui gitk
+#安装成功后
+git config --global user.name "heliang5241"
+git config --global user.email "1960050004@qq.com"
+
+ssh-keygen -t rsa -C '1490270842@qq.com'
+
+cd ~/.ssh
+
+将 id_rsa.pub 配置到远端
