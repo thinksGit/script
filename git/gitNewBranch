@@ -1,7 +1,19 @@
 git checkout -b chenduxiu
 git push origin chenduxiu:chenduxiu
 
+git reflog
+git reset HEAD
+git reset --hard 版本号
 删除分支
 git push origin :chenduxiu
 2种:
 	git push origin --delete chenduxiu
+git branch -d 本地分支
+git branch -D 强制
+
+头指针分离解决
+# 强制将 master 分支指向当前头指针的位置
+ git branch -f master HEAD
+# 检出 master 分支
+ git checkout master
+
