@@ -1,14 +1,15 @@
 #!/bin/bash
-wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" https://download.oracle.com/otn-pub/java/jdk/8u201-b09/42970487e3af4f5aa5bca3f542482c60/jdk-8u201-linux-x64.tar.gz
+if test ! -f jdk8.tar.gz; then
+wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" -O jdk8.tar.gz  https://download.oracle.com/otn-pub/java/jdk/8u201-b09/42970487e3af4f5aa5bca3f542482c60/jdk-8u201-linux-x64.tar.gz
 
 echo "download end............"
-
+fi
 ##set jdk env
 echo " start set jdk env "
 if test ! -d ~/softInstall/jdk8;then
 	mkdir -p ~/softInstall/jdk8
 fi
-tar -zxvf jdk-8u201-linux-x64.tar.gz --strip-components=1 -C ~/softInstall/jdk8 
+tar -zxvf jdk8.tar.gz --strip-components=1 -C ~/softInstall/jdk8 
 if test $? != 0; then
 	echo 'jie ya error'
 	exit

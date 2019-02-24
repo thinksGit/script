@@ -5,7 +5,6 @@ sudo apt update
 sudo apt install fcitx
 配置fcitx
 im-config
-echo 'ssssssssssssssss'
 sudo dpkg -i sougou.deb
 sudo apt install -f
 echo '安装搜狗完成，徐进行手动配置'
