@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Name=大帅比的eclipse
+Comment=没有备注
+Icon=/home/chenduxiu/work/eclipse/icon.xpm
+Exec=/home/chenduxiu/work/eclipse/eclipse -vm /opt/jdk8/jre/bin/java 
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=Application;Development;

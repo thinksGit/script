@@ -14,29 +14,17 @@ sudo useradd -r -g mysql -s /bin/false mysql
 sudo apt-cache search libaio
 sudo apt install libaio1
 ## 下载tar包
-##wget https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-8.0.15-linux-glibc2.12-x86_64.tar.xz 
-read -p '输入mysql的文件路径: ' originFile
-while [[ ! $originFile || ! -f $originFile ]]
-do
-	echo '请输入正确的路径'
-	read originFile 
-done
-echo "文件路径：${originFile}"
-read -p '输入解压目录支持相对路径:  ' tarDir 
-while [[ ! $tarDir ]]
-do
-	echo '目录目录不能为空'
-	read tarDir
-done
-currentDir=$(pwd)
-echo "当前目录${currentDir}"
-target=${tarDir}/mysql
-sudo mkdir -p $target 
+wget -O mysql.tar.xz https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-8.0.15-linux-glibc2.12-x86_64.tar.xz 
+if test $? != 0; then
+    echo '下载失败'
+    exit
+fi
+target=~/softInstall/mysql
+if ! test -d tarDir;then
+    mkdir -p $target
+fi
+sudo tar -Jxvf mysql.tar.xz --strip-components=1 -C $target 
 cd $target
-target=$(pwd)
-cd $currentDir
-echo "目标路径：${target}"
-sudo tar -Jxvf $originFile --strip-components=1 -C $target 
 sudo ln -s $target /usr/local/mysql 
 cd /usr/local/mysql
 sudo mkdir mysql-files
@@ -48,4 +36,4 @@ sudo bin/mysqld --initialize-insecure --user=mysql
 sudo bin/mysql_ssl_rsa_setup
 sudo bin/mysqld_safe --user=mysql &
 sudo cp support-files/mysql.server /etc/init.d/mysqld
-
+bash mysqlServerSetUp

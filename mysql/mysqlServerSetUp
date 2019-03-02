@@ -14,15 +14,15 @@ sudo cp mysqld.service $serPath
 cd $serPath 
 sudo chmod 644 mysqld.service
 
-if test ! -d /usr/lib/tmpfiles.d; then
-	sudo mkdir -p /usr/lib/tmpfiles.d
-fi
+#if test ! -d /usr/lib/tmpfiles.d; then
+#	sudo mkdir -p /usr/lib/tmpfiles.d
+#fi
 #sudo cp mysql.conf /usr/lib/tmpfiles.d
-if [[ $? != 0 ]]; then
-	echo 'cp fault'
-	exit
-fi
-##cd /usr/lib/tmpfiles.d
-##sudo chmod 644 mysql.conf
+#if [[ $? != 0 ]]; then
+#	echo 'cp fault'
+#	exit
+#fi
+#cd /usr/lib/tmpfiles.d
+#sudo chmod 644 mysql.conf
 sudo systemctl enable mysqld.service
 ##sudo systemctl start mysqld
