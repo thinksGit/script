@@ -1,0 +1,3 @@
+nodejs原生解决跨域:
+在createServer中
+ res.setHeader('Access-Control-Allow-Origin', '*');
