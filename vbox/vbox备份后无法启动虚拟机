@@ -1,0 +1,9 @@
+启动报错提示找不到父路径的uuid之类的
+找到不错信息中的提示的正确uuid
+cd到vbox安装目录
+运行
+    VBoxManage.exe internalcommands sethdparentuuid "c:\Users\UserName\VirtualBox VMs\VMName\Snapshots\{xxxx}.vhd" {正确parent的uuid}
+  c:......\ {xxxx}.vhd ：出问题的虚拟机的快照  
+
+    之后:
+    vboxmanage internalcommands dumphdinfo "c:\Users\UserName\VirtualBox VMs\VMName\Snapshots\{xxxxx}.vhd"查看设置是否成功
