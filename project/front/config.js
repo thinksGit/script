@@ -1,9 +1,11 @@
 const config = {
-    view: {
-        //reg: '/public/*/(\.html | \.js | \.css)$',
-        index: '/public/index.html',
+    front : {
+        rootPath : '/view',
+        reakPath : '/public',
+        
     },
     back: {
+        rootPath: '',
         host: 'localhost',
         port: '8080',
         baseUrl: 'localhost:8080',
