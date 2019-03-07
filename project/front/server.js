@@ -2,8 +2,7 @@ const http = require('http');
 const ke = require('./routeModel.js');
 const url = require('url');
 var app2 = new ke();
-app2.static("/view", '/public');
-app2.use("/view/.*/(\.html | \.)", () => {
+app2.use("/back/", () => {
     console.log("path=" + "/home");
 });
 var app = http.createServer(app2);
