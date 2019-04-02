@@ -1,10 +1,52 @@
 #!/bin/bash
 
-tempDir=tomcat$(date)
-cd tempDir
-wget -O tomcat.tar.gz http://mirrors.tuna.tsinghua.edu.cn/apache/tomcat/tomcat-9/v9.0.16/bin/apache-tomcat-9.0.16.tar.gz
+tempDir=tomcat$(date "+%Y%m%d-%H%M%S")
+mkdir $tempDir
+cd $tempDir
+wget -O tomcat.tar.gz http://mirrors.shu.edu.cn/apache/tomcat/tomcat-9/v9.0.17/bin/apache-tomcat-9.0.17.tar.gz
 if test $? != 0; then
     echo '下载失败'
     exit
 fi
-tar -zxvf tomcat.tar.gz 
+tarDir=~/softInstall/tomcat9
+mkdir -p $tarDir
+rm -rf ${tarDir}/*
+tar -zxvf tomcat.tar.gz --strip-components=1  -C ${tarDir} 
+sudo ln -s $tarDir /opt/tomcat9
+##配置环境变了
+cp ~/.bashrc $tarDir/bashrc.bat 
+cat <<EOF >> ~/.bashrc
+##set tomcat environment
+export CATALINA_HOME=/opt/tomcat9
+export PATH=\${CATALINA_HOME}/bin:\${PATH}
+EOF
+if test $? != 0; then
+    rm -rf ~/.bashrc
+	mv ${tarDir}/bashrc.bat .bashrc
+    rm -rf ${tarDir}/bashrc.bat
+	echo 'wrrite .bashrc error'
+	exit
+
+fi
+touch ${tarDir}/bin/setenv.sh 
+chmod 755 ${tarDir}/bin/setenv.sh
+cat <<EOF >> ${tarDir}/bin/setenv.sh 
+JAVA_HOME=/opt/jdk8
+JRE_HOME=$JAVA_HOME/jre
+EOF
+if test $? != 0; then
+    rm -rf ~/.bashrc
+	mv ${tarDir}/bashrc.bat .bashrc
+    rm -rf ${tarDir}/bashrc.bat
+	echo 'wrrite .bashrc error'
+	exit
+
+fi
+cd ..
+rm -rf $tempDir
+rm -rf ${tarDir}/bashrc.bat
+
+
+
+
+
