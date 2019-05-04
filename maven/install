@@ -1,0 +1,34 @@
+#!/bin/bash
+tempDir=maven$(date "+%Y%m%d-%H%M%S")
+mkdir $tempDir
+cd $tempDir
+wget -O maven.tar.gz http://mirror.bit.edu.cn/apache/maven/maven-3/3.6.1/binaries/apache-maven-3.6.1-bin.tar.gz
+if test $? != 0; then
+    echo '下载失败'
+    cd ../
+    rm -rf $tempDir
+    exit
+fi
+tarDir=~/softInstall/maven3.6.1
+mkdir -p $tarDir
+rm -rf ${tarDir}/*
+tar -zxvf maven.tar.gz --strip-components=1  -C ${tarDir} 
+sudo ln -s $tarDir /opt/maven3.6.1
+cp ~/.bashrc ${tarDir}/bashrc.bat
+cat <<EOF >> ~/.bashrc
+##set MAVEN  environment
+export MAVEN_HOME=/opt/maven3.6.1
+export PATH=\${MAVEN_HOME}/bin:\${PATH}
+EOF
+if test $? != 0; then
+    rm -rf ~/.bashrc
+	mv ${tarDir}/bashrc.bat .bashrc
+    rm -rf ${tarDir}/bashrc.bat
+	echo 'wrrite .bashrc error'
+	exit
+
+fi
+cd ..
+rm -rf $tempDir
+rm -rf ${tarDir}/bashrc.bat
+
